@@ -23,6 +23,7 @@ class Student{
 
 class LnkdLst {
     Student head;
+    int index;
     public LnkdLst(){  
         //Constructor
         this.head = null;
@@ -32,6 +33,7 @@ class LnkdLst {
         Student newStudent = new Student(name, score);
         if (head == null){
             head = newStudent;
+            this.index++;
             return; 
         }
         Student current = head;
@@ -55,6 +57,7 @@ class LnkdLst {
                 return current;
             }
             current = current.next;
+            this.index++;
         }
         return null; 
     }
@@ -64,7 +67,7 @@ class LnkdLst {
             return;
         } if (n < 0){
             return;
-        }
+        } if(n >= this.index){ return; }
         int index = 0; 
         Student current = head; 
         while (current != null && index < (n-1)){
@@ -73,6 +76,7 @@ class LnkdLst {
         } if (current==null || current.next== null){
             return;
         } current.next = current.next.next;
+        this.index--;
     }
 }
 
