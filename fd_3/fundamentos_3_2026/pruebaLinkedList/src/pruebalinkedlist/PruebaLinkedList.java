@@ -23,16 +23,19 @@ class Student{
 
 class LnkdLst {
     Student head;
-    int index;
+    Student tail;
+    int index = 0;
     public LnkdLst(){  
         //Constructor
         this.head = null;
+        this.tail = null;
     }
     //Agrega un nuevo estudiante al final de la fila 
     public void add (String name, int score){
         Student newStudent = new Student(name, score);
         if (head == null){
             head = newStudent;
+            tail = newStudent;
             this.index++;
             return; 
         }
@@ -40,7 +43,10 @@ class LnkdLst {
         while ( current.next != null){
             current = current.next;
         }
-        current.next = newStudent;
+        //current.next = newStudent;
+        tail.next = newStudent;
+        tail = newStudent;
+        this.index++;
     }
     
     public void print() {
@@ -50,7 +56,7 @@ class LnkdLst {
             current = current.next;
         }
     }
-     public Student retrieve(String searchedName){
+    public Student retrieve(String searchedName){
         Student current = this.head;
         while (current != null){
             if (current.name.equals(searchedName)){
@@ -68,6 +74,21 @@ class LnkdLst {
         } if (n < 0){
             return;
         } if(n >= this.index){ return; }
+        if (n == 0 ){
+            head = head.next;
+            this.index--;
+            return;
+        }
+        if (n == this.index -1) {
+            Student current = head;
+            while (current.next != tail){
+                current = current.next;
+            }
+            current.next = null;
+            tail = current;
+            this.index--;
+            return;
+        }
         int index = 0; 
         Student current = head; 
         while (current != null && index < (n-1)){
@@ -75,7 +96,9 @@ class LnkdLst {
             index++;
         } if (current==null || current.next== null){
             return;
-        } current.next = current.next.next;
+        } 
+        
+        current.next = current.next.next;
         this.index--;
     }
 }
@@ -85,18 +108,29 @@ public class PruebaLinkedList {
  
     public static void main(String[] args) { 
         LnkdLst lista = new LnkdLst();
+        
+        lista.remove(0);
         lista.add( "Linus" , 90 );
         lista.add( "Ada" , 95);
         lista.add( "Paul", 78);
+        lista.add( "Grace", 100);
         
         lista.print();
+        
         //Student found = lista.retrieve("Ada");
         //System.out.println("Found: "+ found.name+ "\nScore: "+found.score);
         Student found = lista.retrieve("Ada");
-        System.out.println("Found: "+ found.name+ "\nScore: "+found.score);
-        found = lista.retrieve("Guillermo");
+        
+        //System.out.println("Found: "+ found.name+ "\nScore: "+found.score);
+        //found = lista.retrieve("Guillermo");
         if(found != null){
             System.out.println("Found: "+ found.name+ "\nScore: "+found.score);
+        } else {
+            System.out.println("Student not found");
         }
+        
+        System.out.println("Attempting to remove the second student");
+        //Student removelast = lista.remove(Student.tail);
+       
     }
 }
