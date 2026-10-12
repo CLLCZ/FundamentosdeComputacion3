@@ -76,14 +76,43 @@ public class ExpedientesPersonas {
         ArrayList<Personas> personas = cargaArchivoPersonas(nombreArchivo);
         if(personas.size() > 10){
             Personas personaEncontrada = personas.get(10);
-            System.out.println("Nombre: "+ personaEncontrada.getNombre());
-            System.out.println("Expediente: "+ personaEncontrada.getExpediente());
-            System.out.println("Edad: "+ personaEncontrada.getEdad());
-            
+            //System.out.println("Nombre: "+ personaEncontrada.getNombre());
+            //System.out.println("Expediente: "+ personaEncontrada.getExpediente());
+            //System.out.println("Edad: "+ personaEncontrada.getEdad());
+            personaEncontrada.mostrarDatos();
         }else {
             System.out.println("No hay suficientes registros en el archivo.");
         }
-        buscarVariasPersonasEnLista(personas, new String[]{"Alan Aldama Andre","Isabel Domínguez Ochoa","Ernesto Ozuna Ramirez","Ada Pino López","Bruno Diaz Hernández","Luis Caro Durazo"});
+        String[] nombresABuscar = {"Alan Aldama Andre", "Isabel Domínguez Ochoa", "Ernesto Ozuna Ramirez", "Ada Pino López", "Bruno Díaz Hernández","Luis Caro Durazo"};
+        buscarVariasPersonasEnLista(personas, nombresABuscar);
+        System.out.println("--------------------------------------------------");
+        java.util.HashMap<String, Personas> mapaPersonas = new java.util.HashMap<>();
+        for (Personas persona : personas) {
+            mapaPersonas.put(persona.getNombre(), persona);
+        }
+        Personas personaEncontradaEnHashMap = buscarPersonaenHashMap(mapaPersonas,"Luis Caro Durazo");
+        System.out.println(" ");
+        personaEncontradaEnHashMap.mostrarDatos();
+        buscarVariasPersonasEnHashMap(mapaPersonas, nombresABuscar);
+        
+    }
+    public static Personas buscarPersonaenHashMap(java.util.HashMap<String, Personas> mapaPersonas, String nombre) {
+        return mapaPersonas.get(nombre);
+        
+    }
+    public static void buscarVariasPersonasEnHashMap(java.util.HashMap<String, Personas> mapaPersonas, String[] nombres) {
+        // Inicia un timer para medir el tiempo de búsqueda
+        long startTime = System.nanoTime();
+        for(String nombre: nombres){
+            Personas personaEncontrada = buscarPersonaenHashMap(mapaPersonas, nombre);
+            if(personaEncontrada != null){
+                personaEncontrada.mostrarDatos();
+            }else{
+                System.out.println("No se encontró a la persona con nombre: " + nombre);
+            }
+        }
+        long endTime = System.nanoTime();
+        System.out.println("Tiempo de búsqueda de en HashMap: " + (endTime - startTime)/1000000.0 +" ms");
     }
     public static Personas buscarPersonaEnLista(ArrayList<Personas> personas, String nombre) {
         for (Personas persona : personas) {
