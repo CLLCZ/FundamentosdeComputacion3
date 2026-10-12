@@ -18,6 +18,7 @@ public class Recursividad {
      
     public static void main(String[] args) {
         //System.out.println("Factorial de 31 (Maximo antes de que sobrepase): " + factorial(31));
+        /*
         int[] arr = {7,15,30,45,50};
         long startTime = System.nanoTime();
         for (int i =0; i<arr.length; i++){
@@ -31,6 +32,14 @@ public class Recursividad {
             System.out.println("Fibonacci de " + arr[i] + ": "+ fib(arr[i]));
             long endTime = System.nanoTime();
             System.out.println("Tiempo de ejecucion: " +(endTime - sTime) / 1000000.0+ " ms");
+        }*/
+        int[] array = {10,21,22,23,24,25,26,27,28,29,30};
+        int x = 30;
+        int indice = buscar_binario(array, x,0, array.length -1);
+        if(indice != -1){
+            System.out.println("Elemento "+x+" encontrado en el indice: "+indice);
+        }else{
+            System.out.println("Elemento "+x+ " no encontrado.");
         }
     }
     public static long fib(int n) {
@@ -57,6 +66,12 @@ public class Recursividad {
         }else{
             return n*( fibonacci(n-1) + fibonacci(n-2));
         }
+    }
+    static int buscar_binario(int[] a, int x, int ini, int fin){
+        if(ini > fin) return -1;
+        int mid = (ini + fin) >>> 1;
+        if (a[mid] == x) return mid;
+        return buscar_binario(a, x, mid+1, fin);
     }
    
 }
