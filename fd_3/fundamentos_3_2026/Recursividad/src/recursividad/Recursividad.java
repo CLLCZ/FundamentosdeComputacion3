@@ -11,6 +11,61 @@ import java.util.Map;
  *
  * @author camil
  */
+
+class Nodo {
+    int valor;
+    Nodo izquierda; 
+    Nodo derecha;
+    public Nodo (int valor){
+        this.valor = valor;
+        this.izquierda = null;
+        this.derecha = null;
+    }
+}
+
+class ArbolBinario{
+    Nodo raiz;
+    public ArbolBinario(){
+        this.raiz = null;
+    }
+    public void insertar(int valor){
+        raiz = insertarRecursivo(raiz, valor);
+    }
+    private Nodo insertarRecursivo(Nodo nodo, int valor){
+        if(nodo == null){
+            return new Nodo(valor);
+        }
+        if(valor < nodo.valor){
+            nodo.izquierda = insertarRecursivo(nodo.izquierda, valor);
+        }else if (valor > nodo.valor){
+            nodo.derecha = insertarRecursivo(nodo.derecha, valor);
+        }
+        
+        return nodo;
+    }
+    public void preOrden(){
+        preOrdenRecursivo(raiz);
+    } 
+    private void preOrdenRecursivo(Nodo nodo){
+        if(nodo != null){
+            System.out.println(nodo.valor + " ");
+            preOrdenRecursivo(nodo.izquierda);
+            preOrdenRecursivo(nodo.derecha);
+        }
+    }   
+    public void inOrden(){
+        inOrdenRecursivo(raiz);
+        
+    }
+    public void inOrdenRecursivo(Nodo nodo){
+        if (nodo != null){
+            inOrdenRecursivo(nodo.izquierda);
+            System.out.println(nodo.valor + " ");
+            inOrdenRecursivo(nodo.derecha);
+        }
+    }
+}
+
 public class Recursividad {
 
     static Map<Integer, Long> memo = new HashMap<>();
@@ -33,7 +88,7 @@ public class Recursividad {
             long endTime = System.nanoTime();
             System.out.println("Tiempo de ejecucion: " +(endTime - sTime) / 1000000.0+ " ms");
         }*/
-        int[] array = {10,21,22,23,24,25,26,27,28,29,30};
+        int[] array = {10,21,22,23,24,25,26,27,28,29,30,58,67,69,71};
         int x = 30;
         int indice = buscar_binario(array, x,0, array.length -1);
         if(indice != -1){
@@ -41,6 +96,12 @@ public class Recursividad {
         }else{
             System.out.println("Elemento "+x+ " no encontrado.");
         }
+        //creacion del arbol binario 
+        ArbolBinario ArbolB = new ArbolBinario();
+        for(int a: array){
+            ArbolB.insertar(a);
+        }
+        ArbolB.preOrden();
     }
     public static long fib(int n) {
         if (n <= 1) return n;
