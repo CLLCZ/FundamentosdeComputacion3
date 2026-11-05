@@ -65,7 +65,7 @@ class ArbolBinario{
 public class ArbolBinNombres {
 
     public static void main(String[] args) { 
-        String[] array = {A,B,C,D,E,E,F,G,H,I,J,K,L,M,N,O,P,Q}
+        //String[] array = {A,B,C,D,E,E,F,G,H,I,J,K,L,M,N,O,P,Q}
                 ////nombre
     }
     
